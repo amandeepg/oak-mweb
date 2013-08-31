@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('OakMwebApp', [])
+angular.module('OakMwebApp', ['ngResource'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
