@@ -39,9 +39,13 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
       },
+      stylus: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.styl'],
+        tasks: ['stylus:dist', 'autoprefixer']
+      },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
+        tasks: ['compass:dist', 'autoprefixer']
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -170,6 +174,21 @@ module.exports = function (grunt) {
         }]
       }
     },
+    stylus: {
+      dist: {
+        options: {
+          compress: false,
+          paths: ['node_modules/grunt-contrib-stylus/node_modules']
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: '{,*/}*.styl',
+          dest: '.tmp/styles',
+          ext: '.css'
+        }]
+      }
+    },
     compass: {
       options: {
         sassDir: '<%= yeoman.app %>/styles',
@@ -184,8 +203,7 @@ module.exports = function (grunt) {
         httpFontsPath: '/styles/fonts',
         relativeAssets: false
       },
-      dist: {},
-      server: {
+      dist: {
         options: {
           debugInfo: true
         }
@@ -309,16 +327,19 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'coffee:dist',
-        'compass:server',
+        'stylus:dist',
+        'compass:dist',
         'copy:styles'
       ],
       test: [
         'coffee',
+        'stylus',
         'compass',
         'copy:styles'
       ],
       dist: [
         'coffee',
+        'stylus:dist',
         'compass:dist',
         'copy:styles',
         'imagemin',
