@@ -77,15 +77,15 @@ module.exports = function (grunt) {
         hostname: 'localhost'
       },
       proxies: [
-          {
-              context: '/api',
-              host: 'oak-server.amandeep.ca',
-              port: 80,
-              changeOrigin: true,
-              rewrite: {
-                  '^/api': ''
-              }
+        {
+          context: '/api',
+          host: 'oak-server.amandeep.ca',
+          port: 80,
+          changeOrigin: true,
+          rewrite: {
+            '^/api': ''
           }
+        }
       ],
       livereload: {
         options: {
@@ -194,8 +194,8 @@ module.exports = function (grunt) {
     // not used since Uglify task does concat,
     // but still available if needed
     /*concat: {
-      dist: {}
-    },*/
+     dist: {}
+     },*/
     rev: {
       dist: {
         files: {
@@ -258,14 +258,14 @@ module.exports = function (grunt) {
       dist: {
         options: {
           /*removeCommentsFromCDATA: true,
-          // https://github.com/yeoman/grunt-usemin/issues/44
-          //collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeOptionalTags: true*/
+           // https://github.com/yeoman/grunt-usemin/issues/44
+           //collapseWhitespace: true,
+           collapseBooleanAttributes: true,
+           removeAttributeQuotes: true,
+           removeRedundantAttributes: true,
+           useShortDoctype: true,
+           removeEmptyAttributes: true,
+           removeOptionalTags: true*/
         },
         files: [{
           expand: true,

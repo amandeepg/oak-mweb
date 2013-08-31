@@ -5,6 +5,6 @@ angular.module('OakMwebApp')
     $scope.courses = Course.query();
 
     $scope.addCourse = function(){
-      alert("blah");
-    }
+      window.alert('blah');
+    };
   });
