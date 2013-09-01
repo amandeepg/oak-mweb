@@ -2,7 +2,7 @@
 'use strict';
 var LIVERELOAD_PORT = 35730;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
-var mountFolder = function (connect, dir) {
+var mountFolder = function(connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
 
@@ -14,7 +14,7 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
@@ -26,7 +26,7 @@ module.exports = function (grunt) {
 
   try {
     yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
-  } catch (e) {}
+  } catch(e) {}
 
   grunt.initConfig({
     yeoman: yeomanConfig,
@@ -76,20 +76,18 @@ module.exports = function (grunt) {
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost'
       },
-      proxies: [
-          {
-              context: '/api',
-              host: 'oak-server.amandeep.ca',
-              port: 80,
-              changeOrigin: true,
-              rewrite: {
-                  '^/api': ''
-              }
-          }
-      ],
+      proxies: [{
+        context: '/api',
+        host: 'oak-server.amandeep.ca',
+        port: 80,
+        changeOrigin: true,
+        rewrite: {
+          '^/api': ''
+        }
+      }],
       livereload: {
         options: {
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               proxySnippet,
               lrSnippet,
@@ -101,7 +99,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               mountFolder(connect, '.tmp'),
               mountFolder(connect, 'test')
@@ -111,7 +109,7 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               mountFolder(connect, yeomanConfig.dist)
             ];
@@ -193,9 +191,11 @@ module.exports = function (grunt) {
     },
     // not used since Uglify task does concat,
     // but still available if needed
-    /*concat: {
-      dist: {}
-    },*/
+    /*
+    concat: {
+       dist: {}
+    },
+    */
     rev: {
       dist: {
         files: {
@@ -257,7 +257,8 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
-          /*removeCommentsFromCDATA: true,
+          /*
+          removeCommentsFromCDATA: true,
           // https://github.com/yeoman/grunt-usemin/issues/44
           //collapseWhitespace: true,
           collapseBooleanAttributes: true,
@@ -265,7 +266,8 @@ module.exports = function (grunt) {
           removeRedundantAttributes: true,
           useShortDoctype: true,
           removeEmptyAttributes: true,
-          removeOptionalTags: true*/
+          removeOptionalTags: true
+          */
         },
         files: [{
           expand: true,
@@ -358,7 +360,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('server', function (target) {
+  grunt.registerTask('server', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
     }
