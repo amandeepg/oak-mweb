@@ -33,11 +33,15 @@ module.exports = function(grunt) {
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-        tasks: ['coffee:dist']
+        tasks: ['coffee:server']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
+      },
+      stylus: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.styl'],
+        tasks: ['stylus:server', 'autoprefixer']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -150,6 +154,9 @@ module.exports = function(grunt) {
         sourceRoot: ''
       },
       dist: {
+        options: {
+          sourceMap: false
+        },
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/scripts',
@@ -157,6 +164,9 @@ module.exports = function(grunt) {
           dest: '.tmp/scripts',
           ext: '.js'
         }]
+      },
+      server: {
+        files: '<%= coffee.dist.files %>'
       },
       test: {
         files: [{
@@ -166,6 +176,27 @@ module.exports = function(grunt) {
           dest: '.tmp/spec',
           ext: '.js'
         }]
+      }
+    },
+    stylus: {
+      options: {
+        paths: ['node_modules/grunt-contrib-stylus/node_modules']
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: '{,*/}*.styl',
+          dest: '.tmp/styles',
+          ext: '.css'
+        }]
+      },
+      server: {
+        options: {
+          compress: false,
+          linenos: true
+        },
+        files: '<%= stylus.dist.files %>'
       }
     },
     compass: {
@@ -310,17 +341,20 @@ module.exports = function(grunt) {
     },
     concurrent: {
       server: [
-        'coffee:dist',
+        'coffee:server',
+        'stylus:server',
         'compass:server',
         'copy:styles'
       ],
       test: [
         'coffee',
-        'compass',
+        'stylus:dist',
+        'compass:dist',
         'copy:styles'
       ],
       dist: [
-        'coffee',
+        'coffee:dist',
+        'stylus:dist',
         'compass:dist',
         'copy:styles',
         'imagemin',
