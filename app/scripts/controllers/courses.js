@@ -3,6 +3,7 @@
 angular.module('OakMwebApp')
   .controller('MainCtrl', function ($scope, Course, courses) {
     $scope.courses = courses;
+    $scope.identity = angular.identity;
 
     $scope.addCourse = function() {
       var courseCode = window.prompt('Course code?');

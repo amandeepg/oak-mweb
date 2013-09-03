@@ -1,7 +1,8 @@
 'use strict';
 
+// TODO(amandeepg): Change to CRUD when server supports it.
+
 angular.module('OakMwebApp')
-  // TODO(amandeepg): Change to CRUD when server supports it.
   .factory('Course', function ($resource) {
 
     // Using hack of password in POST until server supports real auth.
@@ -17,7 +18,7 @@ angular.module('OakMwebApp')
         params: {
           courseApiEndpoint: 'CourseList',
           password: 'EngSci'
-        },
+        }
       },
       save: {
         method: 'POST',
@@ -29,6 +30,31 @@ angular.module('OakMwebApp')
           return jQuery.param(addPassword(data));
         }
       },
+      verify: {
+        method: 'GET',
+        params: {
+          courseApiEndpoint: 'VerifyCoursePassword',
+          password: 'EngSci'
+        },
+        isArray: false
+      }
+    });
+
+  });
+
+angular.module('OakMwebApp')
+  .factory('Question', function ($resource, DeviceId) {
+
+    // Using hack (:questionApiEndpoint), until server supports CRUD
+    return $resource('api/:questionApiEndpoint', null, {
+      query: {
+        method: 'GET',
+        params: {
+          questionApiEndpoint: 'QuestionList',
+          password: 'EngSci',
+          deviceId: DeviceId.getId()
+        }
+      }
     });
 
   });
