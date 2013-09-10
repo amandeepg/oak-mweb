@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('OakMwebApp')
-  .controller('MainCtrl', function ($scope, Course, courses) {
+  .controller('CoursesCtrl', function ($scope, Course, courses) {
     $scope.courses = courses;
     $scope.identity = angular.identity;
 

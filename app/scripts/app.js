@@ -5,7 +5,7 @@ angular.module('OakMwebApp', ['ngRoute', 'ngResource', 'ngCookies'])
     $routeProvider
       .when('/courses', {
         templateUrl: 'views/courses.html',
-        controller: 'MainCtrl',
+        controller: 'CoursesCtrl',
         resolve: {
           courses: function(Course) {
             return Course.query().$promise;
@@ -14,7 +14,7 @@ angular.module('OakMwebApp', ['ngRoute', 'ngResource', 'ngCookies'])
       })
       .when('/courses/:courseId', {
         templateUrl: 'views/course_details.html',
-        controller: 'CourseDetailCtrl',
+        controller: 'CourseDetailsCtrl',
         resolve: {
           questions: function($q, $route, Course, Question) {
 
