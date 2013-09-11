@@ -1,9 +1,9 @@
 <div class="page-header">
   <h1> Courses </h1>
   <button type="button" class="btn btn-success" ng-click="addCourse()">
-  	Add
+    Add
   </button>
 </div>
 <div class="list-group">
-    <a href="#" class="list-group-item" ng-repeat="course in courses.courses">{{course}}</a>
+    <a ng-repeat="course in courses.courses | orderBy:identity" ng-href="/#/courses/{{course}}" class="list-group-item" >{{course}}</a>
 </div>
