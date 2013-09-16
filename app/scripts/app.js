@@ -18,12 +18,12 @@ angular.module('OakMwebApp', ['ngRoute', 'ngResource', 'ngCookies'])
         resolve: {
           questionsResponse: function($q, $route, Question) {
 
-            function getQuestions(coursePassword) {
+            var getQuestions = function(coursePassword) {
               return Question.get({
                 courseId: $route.current.params.courseId,
                 coursePassword: coursePassword
               }).$promise;
-            }
+            };
 
             var coursePassword = window.prompt('Course password?');
 

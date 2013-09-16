@@ -3,9 +3,9 @@
 angular.module('OakMwebApp')
   .controller('CourseDetailsCtrl', function ($scope, questionsResponse) {
 
-    function onQuestionsLoaded(response) {
+    var onQuestionsLoaded = function(response) {
       $scope.questions = response.questions;
-    }
+    };
 
     onQuestionsLoaded(questionsResponse);
   });

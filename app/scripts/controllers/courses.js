@@ -3,15 +3,15 @@
 angular.module('OakMwebApp')
   .controller('CoursesCtrl', function ($scope, Course, coursesResponse) {
 
-    function onCoursesLoaded(response) {
+    var onCoursesLoaded = function(response) {
       $scope.courses = response.courses;
-    }
+    };
 
-    function reloadCourses() {
+    var reloadCourses = function() {
       Course.get().$promise.then(onCoursesLoaded);
-    }
+    };
 
-    function addCourse() {
+    var addCourse = function() {
       var courseCode = window.prompt('Course code?');
       var coursePassword = window.prompt('Course password?');
 
@@ -20,7 +20,7 @@ angular.module('OakMwebApp')
         coursePassword: coursePassword
       };
       Course.save(params, reloadCourses);
-    }
+    };
 
     onCoursesLoaded(coursesResponse);
     $scope.identity = angular.identity;
