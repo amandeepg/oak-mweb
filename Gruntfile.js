@@ -82,11 +82,11 @@ module.exports = function(grunt) {
       },
       proxies: [{
         context: '/api',
-        host: 'oak-server.amandeep.ca',
+        host: 'project-oak.herokuapp.com',
         port: 80,
         changeOrigin: true,
         rewrite: {
-          '^/api': ''
+          '^/api': '/rest/university/1'
         }
       }],
       livereload: {
