@@ -6,14 +6,11 @@ angular.module('OakMwebApp')
   });
 
 angular.module('OakMwebApp')
-  .factory('Question', function ($resource, DeviceId) {
-    return $resource('api/courses/:courseId/questions', null, {
-      get: {
-        method: 'GET',
-        params: {
-          deviceId: DeviceId.getId()
-        }
-      }
-    });
+  .factory('Question', function ($resource, $route, DeviceId) {
+    return $resource('api/courses/:courseId/questions?deviceId=:deviceId&coursePassword=:coursePassword', {
+      deviceId: DeviceId.getId(),
+      courseId: function() { return $route.current.params.courseId; },
+      coursePassword: function() { return $route.current.params.coursePassword; },
+    }, null);
 
   });

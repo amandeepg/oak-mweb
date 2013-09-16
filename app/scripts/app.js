@@ -16,18 +16,10 @@ angular.module('OakMwebApp', ['ngRoute', 'ngResource', 'ngCookies'])
         templateUrl: 'views/course_details.html',
         controller: 'CourseDetailsCtrl',
         resolve: {
-          questionsResponse: function($q, $route, Question) {
+          questionsResponse: function($route, Question) {
+            $route.current.params.coursePassword = window.prompt('Course password?');
 
-            var getQuestions = function(coursePassword) {
-              return Question.get({
-                courseId: $route.current.params.courseId,
-                coursePassword: coursePassword
-              }).$promise;
-            };
-
-            var coursePassword = window.prompt('Course password?');
-
-            return getQuestions(coursePassword)
+            return Question.get().$promise
               .catch(function(error) {
                 if (error.hasOwnProperty('status') && error.status === 401) {
                   window.alert('Incorrect password!');
