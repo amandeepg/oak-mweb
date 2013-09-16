@@ -29,7 +29,7 @@ angular.module('OakMwebApp', ['ngRoute', 'ngResource', 'ngCookies'])
 
             return getQuestions(coursePassword)
               .catch(function(error) {
-                if (error.hasOwnProperty('status') && error.status == 401) {
+                if (error.hasOwnProperty('status') && error.status === 401) {
                   window.alert('Incorrect password!');
                   throw new Error('Incorrect password');
                 }
