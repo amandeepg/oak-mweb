@@ -1,6 +1,11 @@
 'use strict';
 
 angular.module('OakMwebApp')
-  .controller('CourseDetailsCtrl', function ($scope, questions) {
-    $scope.questions = jQuery.merge(questions.questions, questions.topVotedQuestion);
+  .controller('CourseDetailsCtrl', function ($scope, questionsResponse) {
+
+    function onQuestionsLoaded(response) {
+      $scope.questions = response.questions;
+    }
+
+    onQuestionsLoaded(questionsResponse);
   });

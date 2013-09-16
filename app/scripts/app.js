@@ -7,8 +7,8 @@ angular.module('OakMwebApp', ['ngRoute', 'ngResource', 'ngCookies'])
         templateUrl: 'views/courses.html',
         controller: 'CoursesCtrl',
         resolve: {
-          courses: function(Course) {
-            return Course.query().$promise;
+          coursesResponse: function(Course) {
+            return Course.get().$promise;
           }
         }
       })
@@ -16,35 +16,24 @@ angular.module('OakMwebApp', ['ngRoute', 'ngResource', 'ngCookies'])
         templateUrl: 'views/course_details.html',
         controller: 'CourseDetailsCtrl',
         resolve: {
-          questions: function($q, $route, Course, Question) {
+          questionsResponse: function($q, $route, Question) {
 
-            function verifyCoursePassword(pwd) {
-
-              var verifyRequest = Course.verify({
-                courseCode: $route.current.params.courseId,
-                coursePassword: pwd
-              });
-
-              return verifyRequest.$promise.then(function(result) {
-                // TODO(amandeepg): not sure why we need a [0] here
-                if (result[0] === '1') {
-                  return null;
-                } else {
-                  throw new Error('Incorrect password');
-                }
-              });
-            }
-
-            function getQuestions() {
-              return Question.query({
-                courseCode: $route.current.params.courseId,
+            function getQuestions(coursePassword) {
+              return Question.get({
+                courseId: $route.current.params.courseId,
                 coursePassword: coursePassword
               }).$promise;
             }
 
             var coursePassword = window.prompt('Course password?');
 
-            return verifyCoursePassword(coursePassword).then(getQuestions);
+            return getQuestions(coursePassword)
+              .catch(function(error) {
+                if (error.hasOwnProperty('status') && error.status == 401) {
+                  window.alert('Incorrect password!');
+                  throw new Error('Incorrect password');
+                }
+              });
           }
         }
       })

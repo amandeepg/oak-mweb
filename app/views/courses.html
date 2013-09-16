@@ -5,5 +5,7 @@
   </button>
 </div>
 <div class="list-group">
-    <a ng-repeat="course in courses.courses | orderBy:identity" ng-href="/#/courses/{{course}}" class="list-group-item" >{{course}}</a>
+    <a ng-repeat="course in courses | orderBy:'courseCode'" ng-href="/#/courses/{{course.courseId}}" class="list-group-item">
+        {{course.courseCode}}
+    </a>
 </div>

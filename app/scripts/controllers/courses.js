@@ -1,18 +1,29 @@
 'use strict';
 
 angular.module('OakMwebApp')
-  .controller('CoursesCtrl', function ($scope, Course, courses) {
-    $scope.courses = courses;
-    $scope.identity = angular.identity;
+  .controller('CoursesCtrl', function ($scope, Course, coursesResponse) {
 
-    $scope.addCourse = function() {
+    function onCoursesLoaded(response) {
+      $scope.courses = response.courses;
+    }
+
+    function reloadCourses() {
+      Course.get().$promise.then(onCoursesLoaded);
+    }
+
+    function addCourse() {
       var courseCode = window.prompt('Course code?');
       var coursePassword = window.prompt('Course password?');
-      Course.save({
+
+      var params = {
         courseCode: courseCode,
         coursePassword: coursePassword
-      }, function() {
-        $scope.courses = Course.query();
-      });
-    };
+      };
+      Course.save(params, reloadCourses);
+    }
+
+    onCoursesLoaded(coursesResponse);
+    $scope.identity = angular.identity;
+    $scope.addCourse = addCourse;
+
   });
