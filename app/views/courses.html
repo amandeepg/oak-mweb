@@ -1,11 +1,18 @@
-<div class="page-header">
-  <h1> Courses </h1>
-  <button type="button" class="btn btn-success" ng-click="addCourse()">
-    Add
-  </button>
-</div>
-<div class="list-group">
-    <a ng-repeat="course in courses | orderBy:'courseCode'" ng-href="/#/courses/{{course.courseId}}" class="list-group-item">
-        {{course.courseCode}}
-    </a>
-</div>
+<header>
+    <h1>Courses</h1>
+    <button class="right" ng-click="addCourse()">New</button>
+</header>
+
+<section class="user-input">
+    <input type="text" ng-model="query" placeholder="Search for a course..">
+</section>
+
+<section>
+    <ul class="cards">
+        <li class="card" ng-repeat="course in courses | orderBy:'courseCode' | filter:query">
+            <a ng-href="/#/courses/{{course.courseId}}">
+                {{course.courseCode}}
+            </a>
+        </li>
+    </ul>
+</section>

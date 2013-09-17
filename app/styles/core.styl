@@ -1,0 +1,140 @@
+/* Core Styles for Oak-Mweb
+ * author: John Liu
+ * version: 0.0.1
+ */
+
+@import 'nib'
+@import 'lib'
+
+$color-white = #FFFFFF
+$color-black = #232323
+$color-black-light = lighten($color-black, 15%);
+$color-blue = #1AA6F9
+
+$weight-light = lighter
+$weight-normal = normal
+$weight-bold = bold
+
+/* Layout */
+
+html {
+  background-color: $color-blue;
+}
+
+body {
+  anti-aliasing();
+  color: $color-black;
+  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: $weight-normal;
+  font-size: 62.5%;
+  margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  font-size: 1.6em, 1.4em, 1.8em;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  background-color: $color-black-light;
+  color: $color-white;
+  padding: 1em;
+
+  button {
+    background-color: $color-blue;
+    position: absolute;
+    top: 0.5em;
+
+    &.left {
+      left: 0.5em;
+    }
+
+    &.right {
+      right: 0.5em;
+    }
+
+    &:hover {
+      background-color: lighten(@background-color, 15%);
+    }
+  }
+}
+
+section {
+  margin: 1em auto;
+  width: 100%;
+}
+
+.user-input {
+  text-align: center;
+}
+
+/* Typography */
+
+a {
+  color: $color-black;
+  font-weight: $weight-bold;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.cards {
+  list-style-type: none;
+  padding: 0;
+
+  .card {
+    background-color: $color-white;
+    box-shadow: 0 1px 2px 0 lighten($color-black, 60%);
+    margin: 1em;
+    padding: 0;
+
+    a {
+      box-sizing: border-box;
+      display: block;
+      padding: 1em;
+      width: 100%;
+    }
+
+    .votes {
+      float: right;
+    }
+  }
+}
+
+/* Components */
+
+button {
+  background-color: $color-black-light;
+  border-width: 0;
+  border-style: none;
+  color: $color-white;
+  padding: 0 1em;
+  line-height: 2em;
+  height: 2em;
+  outline: none;
+  vertical-align: middle;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: lighten(@background-color, 15%);
+  }
+}
+
+input[type=text] {
+  border-width: 0;
+  border-style: none;
+  border-radius: 0;
+  padding: 0 0.5em;
+  line-height: 2em;
+  height: 2em;
+  outline: none;
+  vertical-align: middle;
+  /*box-shadow: inset 0 0 1px 0 lighten($color-black, 50%);*/
+}

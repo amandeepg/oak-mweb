@@ -1,8 +1,24 @@
-<div class="page-header">
-    <h1> Questions </h1>
-</div>
-<div class="list-group">
-    <a ng-repeat="question in questions | orderBy:'weightedImportance'" class="list-group-item">
-        {{ question.votes }} | {{ question.question }}
-    </a>
-</div>
+<header>
+    <h1>Questions</h1>
+    <button class="left">&lt; Back</button>
+</header>
+
+<section class="user-input">
+    <input type="text" ng-model="question" placeholder="New question..">
+    <button>Submit</button>
+</section>
+
+<section>
+    <ul class="cards">
+        <li class="card" ng-repeat="question in questions | orderBy:'weightedImportance'">
+            <a>
+                {{question.question}}
+                <div class="votes">
+                    <i class="icon-thumbs-up"></i>
+                    {{question.votes}}
+                    <i class="icon-thumbs-down"></i>
+                </div>
+            </a>
+        </li>
+    </ul>
+</section>
