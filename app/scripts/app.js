@@ -1,5 +1,7 @@
 'use strict';
 
+document.addEventListener('touchstart', function() {}, true);
+
 angular.module('OakMwebApp', ['ngRoute', 'ngResource', 'ngCookies'])
   .config(function ($routeProvider) {
     $routeProvider

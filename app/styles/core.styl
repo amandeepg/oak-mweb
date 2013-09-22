@@ -43,6 +43,10 @@ header {
   color: $color-white;
   padding: 1em;
 
+  h1 {
+    margin-bottom: 0;
+  }
+
   button {
     background-color: $color-blue;
     position: absolute;
@@ -120,9 +124,9 @@ button {
   height: 2em;
   outline: none;
   vertical-align: middle;
-  transition: 0.5s;
+  -webkit-tap-highlight-color: rbga(0, 0, 0, 0);
 
-  &:hover {
+  &:active {
     background-color: lighten(@background-color, 15%);
   }
 }
