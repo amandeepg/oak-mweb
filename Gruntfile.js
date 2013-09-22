@@ -31,21 +31,9 @@ module.exports = function(grunt) {
   grunt.initConfig({
     yeoman: yeomanConfig,
     watch: {
-      coffee: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-        tasks: ['coffee:server']
-      },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
-      },
       stylus: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.styl'],
         tasks: ['stylus:server', 'autoprefixer']
-      },
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -148,36 +136,6 @@ module.exports = function(grunt) {
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
-    coffee: {
-      options: {
-        sourceMap: true,
-        sourceRoot: ''
-      },
-      dist: {
-        options: {
-          sourceMap: false
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/scripts',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/scripts',
-          ext: '.js'
-        }]
-      },
-      server: {
-        files: '<%= coffee.dist.files %>'
-      },
-      test: {
-        files: [{
-          expand: true,
-          cwd: 'test/spec',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/spec',
-          ext: '.js'
-        }]
-      }
-    },
     stylus: {
       options: {
         paths: ['node_modules/grunt-contrib-stylus/node_modules']
@@ -197,27 +155,6 @@ module.exports = function(grunt) {
           linenos: true
         },
         files: '<%= stylus.dist.files %>'
-      }
-    },
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        generatedImagesDir: '.tmp/images/generated',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
-        relativeAssets: false
-      },
-      dist: {},
-      server: {
-        options: {
-          debugInfo: true
-        }
       }
     },
     // not used since Uglify task does concat,
@@ -341,21 +278,15 @@ module.exports = function(grunt) {
     },
     concurrent: {
       server: [
-        'coffee:server',
         'stylus:server',
-        'compass:server',
         'copy:styles'
       ],
       test: [
-        'coffee',
         'stylus:dist',
-        'compass:dist',
         'copy:styles'
       ],
       dist: [
-        'coffee:dist',
         'stylus:dist',
-        'compass:dist',
         'copy:styles',
         'imagemin',
         'svgmin',
